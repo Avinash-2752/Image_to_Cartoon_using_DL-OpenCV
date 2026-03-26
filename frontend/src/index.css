@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0D0D0D;
+    color: #F5F5F0;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Subtle grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* Glowing drop zone on drag */
+  .dropzone-glow {
+    box-shadow:
+      0 0 0 2px #E8FF3A,
+      0 0 30px rgba(232, 255, 58, 0.18),
+      inset 0 0 20px rgba(232, 255, 58, 0.05);
+  }
+
+  /* Acid yellow button */
+  .btn-acid {
+    @apply font-display tracking-widest uppercase rounded-2xl py-4 px-6 text-lg transition-all duration-150 active:scale-[0.97];
+  }
+
+  /* Card border */
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .text-acid-yellow { color: #E8FF3A; }
+  .text-acid-green  { color: #39FF6A; }
+  .text-acid-pink   { color: #FF3A8C; }
+  .text-acid-blue   { color: #3AE8FF; }
+
+  .bg-acid-yellow { background-color: #E8FF3A; }
+  .bg-acid-green  { background-color: #39FF6A; }
+  .bg-acid-pink   { background-color: #FF3A8C; }
+
+  .border-acid-yellow { border-color: #E8FF3A; }
+  .border-acid-green  { border-color: #39FF6A; }
+  .border-acid-pink   { border-color: #FF3A8C; }
+}
+
+/* ── Bouncing loader dots ──────────────────────────────────────────────────── */
+@keyframes bounceDot {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+  40%           { transform: scale(1); opacity: 1;   }
+}
+
+.dot-0 { animation: bounceDot 1.2s ease-in-out 0s   infinite; }
+.dot-1 { animation: bounceDot 1.2s ease-in-out 0.2s infinite; }
+.dot-2 { animation: bounceDot 1.2s ease-in-out 0.4s infinite; }
+
+/* ── Slide-up reveal ──────────────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Fade in ──────────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in { animation: fadeIn 0.35s ease-out both; }
+
+/* ── Hero title shimmer (optional decorative) ─────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #E8FF3A 0%, #ffffff 40%, #E8FF3A 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
